@@ -9,16 +9,21 @@
  - 微信消息服务。实现对微信用户发送客服消息的服务
  - 微信JSAPI服务。实现生成 JSAPI config 信息和 JSAPI 签名功能
  - 微信菜单服务。未完善
- - Token获取、支付签名等功能包含在以上功能内部。不需要直接使用的功能没有列出
 
 ##用法##
 
  - 可以使用 Spring 初始化服务的接口，并且进行调用
- - 初始化之前需要配置 [app.properites][1] 文件。该文件主要配置微信相关信息
+ - 初始化之前需要配置 [weixin.properites][1] 文件。该文件主要配置微信相关信息
 参考
  - 如果使用 redis 作为 token 的缓存机制，则需要配置 [cache.prpperties][2] 文件。该文件制定 redis 服务器信息
- - 完整的 Spring 配置样例参考 [weixing_service.xml][3] 文件
+ - 完整的 Spring 配置样例参考  [weixing_service.xml][3] 文件
  - 完整的 api 调用样例参考[测试用例][4]目录中的实现 
 
 #作者联系方式#
 >邮箱: gaocao2000@sina.com
+
+
+  [1]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/weixing.properties
+  [2]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/cache.properties
+  [3]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/weixing_service.xml
+  [4]: https://github.com/gaochao2000/weixin-java/tree/master/src/test/java/com/x97/weixin
