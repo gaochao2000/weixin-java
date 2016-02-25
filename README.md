@@ -15,7 +15,7 @@
  - 可以使用 Spring 初始化服务的接口，并且进行调用
  - 初始化之前需要配置 [weixin.properites][1] 文件。该文件主要配置微信相关信息
 参考
- - 如果使用 redis 作为 token 的缓存机制，则需要配置 [cache.prpperties][2] 文件。该文件制定 redis 服务器信息
+ - 如果使用 redis 作为 token 的缓存机制，则需要配置 [cache.prpperties][2] 文件。该文件指定 redis 服务器信息
  - 完整的 Spring 配置样例参考  [weixing_service.xml][3] 文件
  - 完整的 api 调用样例参考[测试用例][4]目录中的实现 
 
