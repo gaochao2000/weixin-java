@@ -7,7 +7,7 @@
         <property name="locations">
             <list>
                 <value>classpath:cache.properties</value>
-                <value>classpath:weixing.properties</value>
+                <value>classpath:weixin.properties</value>
             </list>
         </property>
     </bean>
@@ -47,10 +47,10 @@
     </bean>
 
     <bean name="wexinPayService" class="com.x97.weixin.WeixinPayService">
-        <property name="appId" value="${appid}"/>
-        <property name="mchId" value="${mchid}"/>
-        <property name="mchKey" value="${key}"/>
-        <property name="payNotifyURL" value="${nodifyURL}"/>
+        <property name="appId" value="${weixing.appid}"/>
+        <property name="mchId" value="${weixing.mchid}"/>
+        <property name="mchKey" value="${weixing.mchkey}"/>
+        <property name="payNotifyURL" value="${weixing.paynodifyurl}"/>
     </bean>
 
 </beans>
