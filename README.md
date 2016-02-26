@@ -16,7 +16,7 @@
  - 初始化之前需要配置 [weixin.properites][1] 文件。该文件主要配置微信相关信息
 参考
  - 如果使用 redis 作为 token 的缓存机制，则需要配置 [cache.prpperties][2] 文件。该文件指定 redis 服务器信息
- - 完整的 Spring 配置样例参考  [weixing_service.xml][3] 文件
+ - 完整的 Spring 配置样例参考  [weixin_service.xml][3] 文件
  - 完整的 api 调用样例参考[测试用例][4]目录中的实现 
 
 #作者联系方式#
@@ -25,5 +25,5 @@
 
   [1]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/weixing.properties
   [2]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/cache.properties
-  [3]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/weixing_service.xml
+  [3]: https://github.com/gaochao2000/weixin-java/blob/master/src/test/resource/weixin_service.xml
   [4]: https://github.com/gaochao2000/weixin-java/tree/master/src/test/java/com/x97/weixin
