@@ -8,6 +8,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class SpringInitContext {
     public static ApplicationContext initContext() {
-        return new ClassPathXmlApplicationContext(new String[]{"/weixing_service.xml"});
+        return new ClassPathXmlApplicationContext(new String[]{"/weixin_service.xml"});
     }
 }
