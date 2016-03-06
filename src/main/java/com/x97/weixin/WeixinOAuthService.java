@@ -1,12 +1,8 @@
 package com.x97.weixin;
 
 import com.x97.util.encode.EncryptUtil;
-import com.x97.util.web.HttpClientWrap;
-import com.x97.weixin.domain.WeixinUser;
-import com.x97.weixin.domain.WeixinUserGroup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.jettison.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;

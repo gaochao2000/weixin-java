@@ -1,6 +1,7 @@
 package com.x97.weixin;
 
 import com.x97.util.web.HttpClientWrap;
+import com.x97.weixin.domain.WeixinUser;
 import com.x97.weixin.domain.WeixinUserGroup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,5 +69,79 @@ public class WeixinUserService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 通过微信Auth授权得到的code获取用户信息
+     *
+     * @param code 通过微信Auth授权跳转的url中获取的code参数
+     * @return
+     */
+    public WeixinUser findUserInfo(String code) {
+        WeixinUser weixinUser = null;
+        try {
+            String initUserInfo = initUserInfo(code, appId, secret);
+            if (initUserInfo != null) {
+                JSONObject oInitUserInfo = new JSONObject(initUserInfo);
+                if (oInitUserInfo.has("access_token") && oInitUserInfo.has("openid")) {
+                    weixinUser = new WeixinUser();
+                    weixinUser.setOpenId(oInitUserInfo.getString("openid"));
+                    weixinUser.setScope(oInitUserInfo.getString("scope"));
+                    if (oInitUserInfo.has("unionid")) {
+                        weixinUser.setUnionId(oInitUserInfo.getString("unionid"));
+                    }
+                    if (WeixinUser.SCOPE_USERINFO.equals(weixinUser.getScope())) {
+                        String userInfo = findUserInfoFromServer(oInitUserInfo.getString("access_token"), oInitUserInfo.getString("openid"));
+                        if (userInfo != null) {
+                            JSONObject oUserInfo = new JSONObject(userInfo);
+                            if (!oUserInfo.has("errcode")) {
+                                weixinUser.setNickName(oUserInfo.getString("nickname"));
+                                weixinUser.setCountry(oUserInfo.getString("country"));
+                                weixinUser.setProvince(oUserInfo.getString("province"));
+                                weixinUser.setCity(oUserInfo.getString("city"));
+                                weixinUser.setPrivilege(oUserInfo.getString("privilege"));
+                                weixinUser.setHeadIcon(oUserInfo.getString("headimgurl"));
+                            } else {
+                                log.warn("微信没有正确获取用户信息");
+                            }
+                        } else {
+                            log.warn("微信获取用户信息返回数据为空");
+                        }
+                    } else {
+                        log.debug("oauth type is not snsapi_userinfo,do not find user info");
+                    }
+                } else {
+                    log.warn("微信没有获取到用户的openid");
+                }
+            } else {
+                log.warn("微信获取用户openid返回数据为空");
+            }
+        } catch (Exception e) {
+            log.error("【程序执行错误】");
+            log.error(e);
+        }
+        return weixinUser;
+    }
+
+    private String initUserInfo(String code, String appId, String secret) {
+
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId
+                + "&secret=" + secret
+                + "&code=" + code
+                + "&grant_type=authorization_code";
+        log.debug("【发起微信请求】:" + url);
+        String response = new HttpClientWrap().httpGetRequest(url);
+        log.debug("【接收微信回应】:" + response);
+        return response;
+
+    }
+
+    private String findUserInfoFromServer(String userAccesstoken, String openId) {
+        String url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + userAccesstoken
+                + "&openid=" + openId;
+        log.debug("【发起微信请求】 :" + url);
+        String response = new HttpClientWrap().httpGetRequest(url);
+        log.debug("【接收微信回应】 :" + response);
+        return response;
     }
 }
